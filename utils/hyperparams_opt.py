@@ -34,7 +34,8 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     sde_sample_freq = 4
     ortho_init = trial.suggest_categorical('ortho_init', [False, True])
-    activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
+    activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
+
     # Added by sanghson
     use_sde = trial.suggest_categorical("use_sde", [False, True])
     
