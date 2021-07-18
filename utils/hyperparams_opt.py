@@ -29,16 +29,15 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 5])
     vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
     net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
-    # Uncomment for gSDE (continuous actions)
-    # log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
-    # Uncomment for gSDE (continuous action)
-    # sde_sample_freq = trial.suggest_categorical("sde_sample_freq", [-1, 8, 16, 32, 64, 128, 256])
-    # Orthogonal initialization
-    ortho_init = False
-    # ortho_init = trial.suggest_categorical('ortho_init', [False, True])
-    # activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
-    activation_fn = trial.suggest_categorical("activation_fn", ["tanh", "relu"])
-
+    
+    # Activated by sanghson
+    log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
+    sde_sample_freq = 4
+    ortho_init = trial.suggest_categorical('ortho_init', [False, True])
+    activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
+    # Added by sanghson
+    use_sde = trial.suggest_categorical("use_sde", [False, True])
+    
     # TODO: account when using multiple envs
     if batch_size > n_steps:
         batch_size = n_steps
@@ -66,13 +65,15 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
         "gae_lambda": gae_lambda,
         "max_grad_norm": max_grad_norm,
         "vf_coef": vf_coef,
-        # "sde_sample_freq": sde_sample_freq,
+        "sde_sample_freq": sde_sample_freq,
         "policy_kwargs": dict(
-            # log_std_init=log_std_init,
+            log_std_init=log_std_init,
             net_arch=net_arch,
             activation_fn=activation_fn,
             ortho_init=ortho_init,
         ),
+        # Added by sanghson
+        "use_sde": use_sde,
     }
 
 
