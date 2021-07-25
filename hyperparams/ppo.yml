@@ -3,6 +3,51 @@ Ant-v2:
   n_timesteps: !!float 1e6
   policy: 'MlpPolicy'
 
+HalfCheetah-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
+Hopper-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
+Humanoid-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
+HumanoidStandup-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
+InvertedDoublePendulum-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
+InvertedPendulum-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
+Reacher-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
+Swimmer-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
+Walker2d-v2:
+  n_envs: 1
+  n_timesteps: !!float 1e6
+  policy: 'MlpPolicy'
+
 atari:
   env_wrapper:
     - stable_baselines3.common.atari_wrappers.AtariWrapper
