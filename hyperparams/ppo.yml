@@ -1,6 +1,6 @@
 Ant-v2:
   n_envs: 1
-  n_timesteps: !!float 1e6
+  n_timesteps: !!float 1e7
   policy: 'MlpPolicy'
 
 HalfCheetah-v2:
@@ -15,12 +15,12 @@ Hopper-v2:
 
 Humanoid-v2:
   n_envs: 1
-  n_timesteps: !!float 1e6
+  n_timesteps: !!float 1e7
   policy: 'MlpPolicy'
 
 HumanoidStandup-v2:
   n_envs: 1
-  n_timesteps: !!float 1e6
+  n_timesteps: !!float 1e7
   policy: 'MlpPolicy'
 
 InvertedDoublePendulum-v2:

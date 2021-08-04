@@ -1,0 +1,1 @@
+{"batch_size": 256, "n_steps": 128, "gamma": 0.999, "learning_rate": 0.000367054, "ent_coef": 1.09888e-08, "clip_range": 0.3, "n_epochs": 5, "gae_lambda": 0.9, "max_grad_norm": 0.3, "vf_coef": 0.407456, "use_pybullet_params": false}
