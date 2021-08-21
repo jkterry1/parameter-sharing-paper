@@ -26,7 +26,7 @@ parser.add_argument("--n-runs", type=int, default=None)
 args = parser.parse_args()
 
 study_dir = './mujoco_hyperparameters/' + args.study_name
-start_time = datetime.datetime.now()
+start_time = datetime.now()
 for param_id in range(1):
     param_file = study_dir + "/hyperparameters_" + str(param_id + args.parameter_id) + ".json"
     with open(param_file) as f:
@@ -90,7 +90,7 @@ for param_id in range(1):
         print(log)
         f.write(log)
 
-end_time = datetime.datetime.now()
+end_time = datetime.now()
 print("Elapsed Time: ")
 print(end_time - start_time)
 '''
