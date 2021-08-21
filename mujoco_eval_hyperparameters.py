@@ -12,6 +12,7 @@ from stable_baselines3.common.vec_env.vec_video_recorder import VecVideoRecorder
 
 from torch import nn as nn
 from typing import Dict, Any
+from datetime import datetime
 
 n_evaluations = 20
 n_envs = 1
@@ -25,6 +26,7 @@ parser.add_argument("--n-runs", type=int, default=None)
 args = parser.parse_args()
 
 study_dir = './mujoco_hyperparameters/' + args.study_name
+start_time = datetime.datetime.now()
 for param_id in range(1):
     param_file = study_dir + "/hyperparameters_" + str(param_id + args.parameter_id) + ".json"
     with open(param_file) as f:
@@ -87,6 +89,10 @@ for param_id in range(1):
         log = "Total mean reward:" + str(total_mean_reward)
         print(log)
         f.write(log)
+
+end_time = datetime.datetime.now()
+print("Elapsed Time: ")
+print(end_time - start_time)
 '''
         if param_id == 0:
             best_param = params
