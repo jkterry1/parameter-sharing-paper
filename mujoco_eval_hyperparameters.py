@@ -16,17 +16,17 @@ from typing import Dict, Any
 n_evaluations = 20
 n_envs = 1
 n_timesteps = 1e7
-n_params = 10
-n_test_runs = 10
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--study-name", help="Study name used during hyperparameter optimization", type=str, default=None)
 parser.add_argument("--env-name", help="Env to use during hyperaparameter evaluation", type=str, default=None)
+parser.add_argument("--parameter-id", type=int, default=None)
+parser.add_argument("--n-runs", type=int, default=None)
 args = parser.parse_args()
 
 study_dir = './mujoco_hyperparameters/' + args.study_name
-for param_id in range(n_params):
-    param_file = study_dir + "/hyperparameters_" + str(param_id) + ".json"
+for param_id in range(1):
+    param_file = study_dir + "/hyperparameters_" + str(param_id + args.parameter_id) + ".json"
     with open(param_file) as f:
         params = json.load(f)
 
@@ -70,7 +70,7 @@ for param_id in range(n_params):
 
     eval_log_file = eval_log_dir + 'reward_stat.txt'
     with open(eval_log_file, "w+") as f:
-        for i in range(n_test_runs):
+        for i in range(args.n_runs):
             model = PPO('MlpPolicy', env, verbose=0, **params)
             eval_callback = EvalCallback(eval_env, best_model_save_path=eval_log_dir, log_path=eval_log_dir, eval_freq=eval_freq, deterministic=True, render=False)
             model.learn(total_timesteps=n_timesteps, callback=eval_callback)
@@ -87,7 +87,7 @@ for param_id in range(n_params):
         log = "Total mean reward:" + str(total_mean_reward)
         print(log)
         f.write(log)
-
+'''
         if param_id == 0:
             best_param = params
             best_param_id = param_id
@@ -133,3 +133,4 @@ for _ in range(video_length + 1):
     if done:
         break
 env.close()
+'''
