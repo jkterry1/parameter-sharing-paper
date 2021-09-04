@@ -11,7 +11,7 @@ from stable_baselines3 import PPO, DQN
 from stable_baselines3.common.utils import set_random_seed
 
 from pettingzoo.butterfly import cooperative_pong_v3, prospector_v4, knights_archers_zombies_v7
-from pettingzoo.atari import entombed_competitive_v2, pong_v2, basketball_pong_v2
+from pettingzoo.atari import entombed_cooperative_v2, pong_v2, basketball_pong_v2
 
 import supersuit as ss
 from stable_baselines3.common.vec_env import VecMonitor, VecTransposeImage, VecNormalize
@@ -50,7 +50,7 @@ if __name__ == "__main__":  # noqa: C901
     atari_envs = ["entombed-cooperative-v2", "basketball-pong-v2", "pong-v2"]
 
     parser.add_argument("--algo", help="RL Algorithm", default="ppo", type=str, required=False, choices=["ppo", "dqn"])
-    parser.add_argument("--env", type=str, default="prospector-v4", help="environment ID", choices=[
+    parser.add_argument("--env", type=str, default="pong-v2", help="environment ID", choices=[
         "prospector-v4",
         "knights-archers-zombies-v7",
         "cooperative-pong-v3",
@@ -58,10 +58,8 @@ if __name__ == "__main__":  # noqa: C901
         "basketball-pong-v2",
         "pong-v2"
     ])
-    parser.add_argument("--n-trials", help="Number of trials for optimizing hyperparameters", type=int, default=10)
-    parser.add_argument(
-        "-optimize", "--optimize-hyperparameters", action="store_true", default=False, help="Run hyperparameters search"
-    )
+    parser.add_argument("-n", "--n-timesteps", help="Overwrite the number of timesteps", default=1e2, type=int)
+    parser.add_argument("--n-trials", help="Number of trials for optimizing hyperparameters", type=int, default=2)
     parser.add_argument(
         "--optimization-log-path",
         help="Path to save the evaluation log and optimal policy for each hyperparameter tried during optimization. "
@@ -88,7 +86,7 @@ if __name__ == "__main__":  # noqa: C901
         "--n-evaluations",
         help="Training policies are evaluated every n-timesteps // n-evaluations steps when doing hyperparameter optimization",
         type=int,
-        default=20,
+        default=2,
     )
     parser.add_argument("-f", "--log-folder", help="Log folder", type=str, default="logs")
     parser.add_argument(
@@ -99,7 +97,7 @@ if __name__ == "__main__":  # noqa: C901
     args = parser.parse_args()
 
     seed = np.random.randint(2 ** 32 - 1, dtype="int64").item()
-    set_random_seed(args.seed)
+    set_random_seed(seed)
 
     print("=" * 10, args.env, "=" * 10)
     print(f"Seed: {seed}")
@@ -145,9 +143,9 @@ if __name__ == "__main__":  # noqa: C901
     def objective(trial: optuna.Trial) -> float:
         #kwargs = self._hyperparams.copy()
         kwargs = {
-            'n_envs': 1,
+            #'n_envs': 1,
             'policy': 'CnnPolicy',
-            'n_timesteps': 1e6,
+            #'n_timesteps': 1e6,
         }
 
         # Sample candidate hyperparameters
@@ -162,7 +160,7 @@ if __name__ == "__main__":  # noqa: C901
         elif args.env == "cooperative-pong-v3":
             env = cooperative_pong_v3.parallel_env()
         elif args.env == "entombed-cooperative-v2":
-            env = entombed_competitive_v2.parallel_env()
+            env = entombed_cooperative_v2.parallel_env()
         elif args.env == "basketball-pong-v2":
             env = basketball_pong_v2.parallel_env()
         elif args.env == "pong-v2":
@@ -188,7 +186,7 @@ if __name__ == "__main__":  # noqa: C901
             agent_indicator = GeometricPatternIndicator(env, "")
             agent_indicator_wrapper = AgentIndicatorWrapper(agent_indicator)
         if agent_indicator_name != "identity":
-            env = ss.observation_lambda_v0(env, agent_indicator_wrapper.apply)
+            env = ss.observation_lambda_v0(env, agent_indicator_wrapper.apply, agent_indicator_wrapper.apply_space)
 
         env = ss.pettingzoo_env_to_vec_env_v0(env)
         #env = ss.concat_vec_envs_v0(env, num_vec_envs=1, num_cpus=1, base_class='stable_baselines3')
@@ -219,7 +217,7 @@ if __name__ == "__main__":  # noqa: C901
         elif args.env == "cooperative-pong-v3":
             eval_env = cooperative_pong_v3.parallel_env()
         elif args.env == "entombed-cooperative-v2":
-            eval_env = entombed_competitive_v2.parallel_env()
+            eval_env = entombed_cooperative_v2.parallel_env()
         elif args.env == "basketball-pong-v2":
             eval_env = basketball_pong_v2.parallel_env()
         elif args.env == "pong-v2":
@@ -232,7 +230,7 @@ if __name__ == "__main__":  # noqa: C901
 
         # Agent indicator wrapper
         if agent_indicator_name != "identity":
-            eval_env = ss.observation_lambda_v0(eval_env, agent_indicator_wrapper.apply)
+            eval_env = ss.observation_lambda_v0(eval_env, agent_indicator_wrapper.apply, agent_indicator_wrapper.apply_space)
 
         eval_env = ss.pettingzoo_env_to_vec_env_v0(eval_env)
         #eval_env = ss.concat_vec_envs_v0(eval_env, num_vec_envs=1, num_cpus=1, base_class='stable_baselines3')
