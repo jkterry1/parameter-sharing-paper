@@ -180,6 +180,10 @@ if __name__ == "__main__":  # noqa: C901
         env = ss.pad_observations_v0(env)
         env = ss.frame_stack_v1(env, stack_size=muesli_frame_size)
 
+        # Enable black death
+        if args.env == 'knights-archers-zombies-v7':
+            env = ss.black_death_v2(env)
+
         # Agent indicator wrapper
         agent_indicator_name = trial.suggest_categorical("agent_indicator", choices=["identity", "invert", "invert-replace", "binary", "geometric"])
         if agent_indicator_name == "invert":
@@ -242,6 +246,9 @@ if __name__ == "__main__":  # noqa: C901
         eval_env = ss.pad_action_space_v0(eval_env)
         eval_env = ss.pad_observations_v0(eval_env)
         eval_env = ss.frame_stack_v1(eval_env, stack_size=muesli_frame_size)
+        # Enable black death
+        if args.env == 'knights-archers-zombies-v7':
+            eval_env = ss.black_death_v2(eval_env)
 
         # Agent indicator wrapper
         if agent_indicator_name == "invert":
