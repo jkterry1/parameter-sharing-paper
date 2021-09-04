@@ -58,8 +58,8 @@ if __name__ == "__main__":  # noqa: C901
         "basketball-pong-v2",
         "pong-v2"
     ])
-    parser.add_argument("-n", "--n-timesteps", help="Overwrite the number of timesteps", default=1e2, type=int)
-    parser.add_argument("--n-trials", help="Number of trials for optimizing hyperparameters", type=int, default=2)
+    parser.add_argument("-n", "--n-timesteps", help="Overwrite the number of timesteps", default=1e6, type=int)
+    parser.add_argument("--n-trials", help="Number of trials for optimizing hyperparameters", type=int, default=10)
     parser.add_argument(
         "--optimization-log-path",
         help="Path to save the evaluation log and optimal policy for each hyperparameter tried during optimization. "
@@ -86,7 +86,7 @@ if __name__ == "__main__":  # noqa: C901
         "--n-evaluations",
         help="Training policies are evaluated every n-timesteps // n-evaluations steps when doing hyperparameter optimization",
         type=int,
-        default=2,
+        default=100,
     )
     parser.add_argument("-f", "--log-folder", help="Log folder", type=str, default="logs")
     parser.add_argument(
@@ -138,6 +138,9 @@ if __name__ == "__main__":  # noqa: C901
 
     hyperparams_sampler = {'ppo': sample_ppo_params, 'dqn': sample_dqn_params}
     hyperparams_algo = {'ppo': PPO, 'dqn': DQN}
+    
+    muesli_obs_size = 96 
+    muesli_frame_size = 4
 
     # Objective function for hyperparameter search
     def objective(trial: optuna.Trial) -> float:
@@ -166,10 +169,10 @@ if __name__ == "__main__":  # noqa: C901
         elif args.env == "pong-v2":
             env = pong_v2.parallel_env()
         env = ss.color_reduction_v0(env)
-        env = ss.resize_v0(env, x_size=84, y_size=84, linear_interp=True)
+        env = ss.resize_v0(env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
         env = ss.pad_action_space_v0(env)
         env = ss.pad_observations_v0(env)
-        env = ss.frame_stack_v1(env, stack_size=4)
+        env = ss.frame_stack_v1(env, stack_size=muesli_frame_size)
 
         # Agent indicator wrapper
         agent_indicator_name = trial.suggest_categorical("agent_indicator", choices=["identity", "invert", "invert-replace", "binary", "geometric"])
@@ -223,10 +226,10 @@ if __name__ == "__main__":  # noqa: C901
         elif args.env == "pong-v2":
             eval_env = pong_v2.parallel_env()
         eval_env = ss.color_reduction_v0(eval_env)
-        eval_env = ss.resize_v0(eval_env, x_size=84, y_size=84, linear_interp=True)
+        eval_env = ss.resize_v0(eval_env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
         eval_env = ss.pad_action_space_v0(eval_env)
         eval_env = ss.pad_observations_v0(eval_env)
-        eval_env = ss.frame_stack_v1(eval_env, stack_size=4)
+        eval_env = ss.frame_stack_v1(eval_env, stack_size=muesli_frame_size)
 
         # Agent indicator wrapper
         if agent_indicator_name != "identity":
