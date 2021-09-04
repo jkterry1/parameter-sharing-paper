@@ -158,16 +158,22 @@ if __name__ == "__main__":  # noqa: C901
         # Create training env
         if args.env == "prospector-v4":
             env = prospector_v4.parallel_env()
+            agent_type = "prospector"
         elif args.env == "knights-archers-zombies-v7":
             env = knights_archers_zombies_v7.parallel_env()
+            agent_type = "archer"
         elif args.env == "cooperative-pong-v3":
             env = cooperative_pong_v3.parallel_env()
+            agent_type = "paddle_0"
         elif args.env == "entombed-cooperative-v2":
             env = entombed_cooperative_v2.parallel_env()
+            agent_type = "first"
         elif args.env == "basketball-pong-v2":
             env = basketball_pong_v2.parallel_env()
+            agent_type = "first"
         elif args.env == "pong-v2":
             env = pong_v2.parallel_env()
+            agent_type = "first"
         env = ss.color_reduction_v0(env)
         env = ss.resize_v0(env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
         env = ss.pad_action_space_v0(env)
@@ -177,16 +183,16 @@ if __name__ == "__main__":  # noqa: C901
         # Agent indicator wrapper
         agent_indicator_name = trial.suggest_categorical("agent_indicator", choices=["identity", "invert", "invert-replace", "binary", "geometric"])
         if agent_indicator_name == "invert":
-            agent_indicator = InvertColorIndicator(env, "")
+            agent_indicator = InvertColorIndicator(env, agent_type)
             agent_indicator_wrapper = AgentIndicatorWrapper(agent_indicator)
         elif agent_indicator_name == "invert-replace":
-            agent_indicator = InvertColorIndicator(env, "")
+            agent_indicator = InvertColorIndicator(env, agent_type)
             agent_indicator_wrapper = AgentIndicatorWrapper(agent_indicator, False)
         elif agent_indicator_name == "binary":
-            agent_indicator = BinaryIndicator(env, "")
+            agent_indicator = BinaryIndicator(env, agent_type)
             agent_indicator_wrapper = AgentIndicatorWrapper(agent_indicator)
         elif agent_indicator_name == "geometric":
-            agent_indicator = GeometricPatternIndicator(env, "")
+            agent_indicator = GeometricPatternIndicator(env, agent_type)
             agent_indicator_wrapper = AgentIndicatorWrapper(agent_indicator)
         if agent_indicator_name != "identity":
             env = ss.observation_lambda_v0(env, agent_indicator_wrapper.apply, agent_indicator_wrapper.apply_space)
@@ -215,16 +221,22 @@ if __name__ == "__main__":  # noqa: C901
         # Create eval env
         if args.env == "prospector-v4":
             eval_env = prospector_v4.parallel_env()
+            agent_type = "prospector"
         elif args.env == "knights-archers-zombies-v7":
             eval_env = knights_archers_zombies_v7.parallel_env()
+            agent_type = "archer"
         elif args.env == "cooperative-pong-v3":
             eval_env = cooperative_pong_v3.parallel_env()
+            agent_type = "paddle_0"
         elif args.env == "entombed-cooperative-v2":
             eval_env = entombed_cooperative_v2.parallel_env()
+            agent_type = "first"
         elif args.env == "basketball-pong-v2":
             eval_env = basketball_pong_v2.parallel_env()
+            agent_type = "first"
         elif args.env == "pong-v2":
             eval_env = pong_v2.parallel_env()
+            agent_type = "first"
         eval_env = ss.color_reduction_v0(eval_env)
         eval_env = ss.resize_v0(eval_env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
         eval_env = ss.pad_action_space_v0(eval_env)
@@ -232,8 +244,20 @@ if __name__ == "__main__":  # noqa: C901
         eval_env = ss.frame_stack_v1(eval_env, stack_size=muesli_frame_size)
 
         # Agent indicator wrapper
+        if agent_indicator_name == "invert":
+            eval_agent_indicator = InvertColorIndicator(eval_env, agent_type)
+            eval_agent_indicator_wrapper = AgentIndicatorWrapper(eval_agent_indicator)
+        elif agent_indicator_name == "invert-replace":
+            eval_agent_indicator = InvertColorIndicator(eval_env, agent_type)
+            eval_agent_indicator_wrapper = AgentIndicatorWrapper(eval_agent_indicator, False)
+        elif agent_indicator_name == "binary":
+            eval_agent_indicator = BinaryIndicator(eval_env, agent_type)
+            eval_agent_indicator_wrapper = AgentIndicatorWrapper(eval_agent_indicator)
+        elif agent_indicator_name == "geometric":
+            eval_agent_indicator = GeometricPatternIndicator(eval_env, agent_type)
+            eval_agent_indicator_wrapper = AgentIndicatorWrapper(eval_agent_indicator)
         if agent_indicator_name != "identity":
-            eval_env = ss.observation_lambda_v0(eval_env, agent_indicator_wrapper.apply, agent_indicator_wrapper.apply_space)
+            eval_env = ss.observation_lambda_v0(eval_env, eval_agent_indicator_wrapper.apply, eval_agent_indicator_wrapper.apply_space)
 
         eval_env = ss.pettingzoo_env_to_vec_env_v0(eval_env)
         #eval_env = ss.concat_vec_envs_v0(eval_env, num_vec_envs=1, num_cpus=1, base_class='stable_baselines3')
