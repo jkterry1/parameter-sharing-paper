@@ -1,4 +1,3 @@
-
 import sys
 import json
 import numpy as np
@@ -11,7 +10,9 @@ from stable_baselines3 import PPO, DQN
 from stable_baselines3.common.utils import set_random_seed
 
 from pettingzoo.butterfly import cooperative_pong_v3, prospector_v4, knights_archers_zombies_v7
-from pettingzoo.atari import entombed_cooperative_v2, pong_v2, basketball_pong_v2
+from pettingzoo.atari import entombed_cooperative_v2, pong_v2
+from pettingzoo.atari.base_atari_env import BaseAtariEnv, base_env_wrapper_fn, parallel_wrapper_fn
+import gym
 
 import supersuit as ss
 from stable_baselines3.common.vec_env import VecMonitor, VecTransposeImage, VecNormalize
@@ -44,10 +45,9 @@ if __name__ == "__main__":  # noqa: C901
     - Prospector (Butterfly): PPO
     - KAZ (Butterfly): DQN, PPO
     - Pong (Atari): DQN, PPO
-    - Basketball Pong (Atari): DQN, PPO
     '''
     butterfly_envs = ["prospector-v4", "knights-archers-zombies-v7", "cooperative-pong-v3"]
-    atari_envs = ["entombed-cooperative-v2", "basketball-pong-v2", "pong-v2"]
+    atari_envs = ["entombed-cooperative-v2", "pong-v2"]
 
     parser.add_argument("--algo", help="RL Algorithm", default="ppo", type=str, required=False, choices=["ppo", "dqn"])
     parser.add_argument("--env", type=str, default="pong-v2", help="environment ID", choices=[
@@ -55,7 +55,6 @@ if __name__ == "__main__":  # noqa: C901
         "knights-archers-zombies-v7",
         "cooperative-pong-v3",
         "entombed-cooperative-v2",
-        "basketball-pong-v2",
         "pong-v2"
     ])
     parser.add_argument("-n", "--n-timesteps", help="Overwrite the number of timesteps", default=1e6, type=int)
@@ -168,9 +167,6 @@ if __name__ == "__main__":  # noqa: C901
         elif args.env == "entombed-cooperative-v2":
             env = entombed_cooperative_v2.parallel_env()
             agent_type = "first"
-        elif args.env == "basketball-pong-v2":
-            env = basketball_pong_v2.parallel_env()
-            agent_type = "first"
         elif args.env == "pong-v2":
             env = pong_v2.parallel_env()
             agent_type = "first"
@@ -235,11 +231,14 @@ if __name__ == "__main__":  # noqa: C901
         elif args.env == "entombed-cooperative-v2":
             eval_env = entombed_cooperative_v2.parallel_env()
             agent_type = "first"
-        elif args.env == "basketball-pong-v2":
-            eval_env = basketball_pong_v2.parallel_env()
-            agent_type = "first"
         elif args.env == "pong-v2":
-            eval_env = pong_v2.parallel_env()
+            def pong_single_raw_env(**kwargs):
+                return BaseAtariEnv(game="pong", num_players=1, env_name=os.path.basename(__file__)[:-3], **kwargs)
+            pong_single_env = base_env_wrapper_fn(pong_single_raw_env)
+            pong_parallel_env = parallel_wrapper_fn(pong_single_env)
+            eval_env = pong_parallel_env()
+            #eval_env = pong_v2.parallel_env()
+            #eval_env = gym.make("Pong-v0", obs_type='image')
             agent_type = "first"
         eval_env = ss.color_reduction_v0(eval_env)
         eval_env = ss.resize_v0(eval_env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
