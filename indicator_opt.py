@@ -171,9 +171,9 @@ if __name__ == "__main__":  # noqa: C901
             env = pong_v2.parallel_env()
             agent_type = "first"
         env = ss.color_reduction_v0(env)
-        env = ss.resize_v0(env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
         env = ss.pad_action_space_v0(env)
         env = ss.pad_observations_v0(env)
+        env = ss.resize_v0(env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
         env = ss.frame_stack_v1(env, stack_size=muesli_frame_size)
 
         # Enable black death
@@ -241,9 +241,9 @@ if __name__ == "__main__":  # noqa: C901
             #eval_env = gym.make("Pong-v0", obs_type='image')
             agent_type = "first"
         eval_env = ss.color_reduction_v0(eval_env)
-        eval_env = ss.resize_v0(eval_env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
         eval_env = ss.pad_action_space_v0(eval_env)
         eval_env = ss.pad_observations_v0(eval_env)
+        eval_env = ss.resize_v0(eval_env, x_size=muesli_obs_size, y_size=muesli_obs_size, linear_interp=True)
         eval_env = ss.frame_stack_v1(eval_env, stack_size=muesli_frame_size)
         # Enable black death
         if args.env == 'knights-archers-zombies-v7':
