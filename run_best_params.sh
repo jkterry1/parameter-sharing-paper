@@ -1,0 +1,5 @@
+python indicator_best_params.py --study-name cooperative_pong_1_4e6_0 --storage mysql://shh1295:graphicboy1%21@13.125.14.92:3306/cooperative_pong_1_4e6_0 --save-n-best-hyperparameters 10 --visualize True
+python indicator_best_params.py --study-name pong_1_1e7_0 --storage mysql://shh1295:graphicboy1%21@13.125.14.92:3306/pong_1_1e7_0 --save-n-best-hyperparameters 10 --visualize True
+python indicator_best_params.py --study-name entombed_cooperative_1_1e7_0 --storage mysql://shh1295:graphicboy1%21@13.125.14.92:3306/entombed_cooperative_1_1e7_0 --save-n-best-hyperparameters 10 --visualize True
+python indicator_best_params.py --study-name kaz_1_1e7_0 --storage mysql://shh1295:graphicboy1%21@13.125.14.92:3306/kaz_1_1e7_0 --save-n-best-hyperparameters 10 --visualize True
+python indicator_best_params.py --study-name prospector_1_1e8_0 --storage mysql://shh1295:graphicboy1%21@13.125.14.92:3306/prospector_1_1e8_0 --save-n-best-hyperparameters 10 --visualize True
