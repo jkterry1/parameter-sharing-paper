@@ -1,1 +1,1 @@
-{"batch_size": 512, "n_steps": 64, "gamma": 0.99, "learning_rate": 0.0001261, "ent_coef": 5.70777e-06, "clip_range": 0.4, "n_epochs": 10, "gae_lambda": 0.99, "max_grad_norm": 0.6, "vf_coef": 0.484142, "net_arch": "medium", "activation_fn": "relu", "agent_indicator": "invert-replace"}
+{"batch_size": 128, "n_steps": 1024, "gamma": 0.995, "learning_rate": 1.69898e-05, "ent_coef": 0.0360385, "clip_range": 0.4, "n_epochs": 20, "gae_lambda": 0.9, "max_grad_norm": 2, "vf_coef": 0.319312, "net_arch": "small", "activation_fn": "relu", "agent_indicator": "identity"}
