@@ -1,0 +1,1 @@
+python indicator_eval_params.py --study-name pong_1_1e7_0 --env-name pong-v2 --parameter-id 0 --n-runs 10 --timesteps 10000000

@@ -1,0 +1,1 @@
+python indicator_eval_params.py --study-name kaz_1_1e7_0 --env-name knights-archers-zombies-v7 --parameter-id 0 --n-runs 10 --timesteps 10000000
