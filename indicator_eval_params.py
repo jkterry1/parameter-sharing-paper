@@ -51,6 +51,9 @@ for param_id in range(1):
     with open(param_file) as f:
         params = json.load(f)
 
+    if(params['batch_size'] > params['n_steps']):
+        params['batch_size'] = params['n_steps']
+
     print("Evaluating Hyperparameters...")
     print(params)
 
