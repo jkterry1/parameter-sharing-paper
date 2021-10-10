@@ -1,0 +1,1 @@
+{"batch_size": 16, "n_steps": 2048, "gamma": 0.95, "learning_rate": 1.98755e-05, "ent_coef": 5.41597e-06, "clip_range": 0.2, "n_epochs": 5, "gae_lambda": 0.8, "max_grad_norm": 2, "vf_coef": 0.224394, "net_arch": "small", "activation_fn": "tanh", "agent_indicator": "invert"}
