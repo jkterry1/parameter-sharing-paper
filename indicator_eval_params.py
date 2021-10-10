@@ -200,11 +200,13 @@ for param_id in range(1):
             )
 
             eval_run_log_dir = eval_log_dir + 'run_' + str(i)
+
+            n_eval_episodes = 5 * env.num_envs
             
-            eval_callback = EvalCallback(eval_env, n_eval_episodes=10, best_model_save_path=eval_run_log_dir, log_path=eval_run_log_dir, eval_freq=eval_freq, deterministic=True, render=False)
+            eval_callback = EvalCallback(eval_env, n_eval_episodes=n_eval_episodes, best_model_save_path=eval_run_log_dir, log_path=eval_run_log_dir, eval_freq=eval_freq, deterministic=True, render=False)
             model.learn(total_timesteps=n_timesteps, callback=eval_callback)
             model = PPO.load(eval_run_log_dir + '/best_model')
-            mean_reward, std_reward = evaluate_policy(model, eval_env, deterministic=True, n_eval_episodes=10)
+            mean_reward, std_reward = evaluate_policy(model, eval_env, deterministic=True, n_eval_episodes=n_eval_episodes)
             
             log = str(i) + "th mean reward:" + str(mean_reward) + " / std reward:" + str(std_reward)
             print(log)
