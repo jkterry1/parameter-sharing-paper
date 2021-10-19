@@ -1,0 +1,3 @@
+0th mean reward:7.5199995 / std reward:5.925675
+1th mean reward:1.7200001 / std reward:1.7724557
+Total mean reward:4.619999825954437

@@ -1,0 +1,11 @@
+0th mean reward:-45.98889 / std reward:3.8262146
+1th mean reward:-46.500008 / std reward:1.5638646
+2th mean reward:-45.08889 / std reward:3.1992595
+3th mean reward:-39.444466 / std reward:3.194699
+4th mean reward:-44.800007 / std reward:5.2694626
+5th mean reward:-22.21104 / std reward:36.3321
+6th mean reward:-46.977776 / std reward:1.1964955
+7th mean reward:-26.999914 / std reward:38.50788
+8th mean reward:-45.944447 / std reward:3.347552
+9th mean reward:-47.988888 / std reward:0.48989797
+Total mean reward:-41.19443264007568

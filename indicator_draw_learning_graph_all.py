@@ -19,7 +19,7 @@ result_per_timestep_per_hyperparam = {}
 
 for h in range(args.parameter_id):
     param_id = h
-    if param_id == 6:
+    if param_id == 0:
         continue
 
     eval_log_dir = study_dir + '/eval_logs/hyperparameter_' + str(param_id) + '/'
@@ -60,7 +60,7 @@ fig, ax = plt.subplots()
 fig.set_size_inches(16, 12)
 clrs = sns.color_palette("husl", args.parameter_id)
 with sns.axes_style("darkgrid"):
-    timesteps = list(result_per_timestep_per_hyperparam[0].keys())
+    timesteps = list(result_per_timestep_per_hyperparam[1].keys())
     
     for i in range(args.parameter_id):
         if i not in result_per_timestep_per_hyperparam.keys():
