@@ -27,7 +27,7 @@ eval_log_dir = study_dir + '/eval_logs/hyperparameter_' + str(param_id) + '/'
 
 result_per_timestep = {}
 
-EVAL_RUNS = 20
+EVAL_RUNS = 10
 
 muesli_obs_size = 96 
 muesli_frame_size = 4
