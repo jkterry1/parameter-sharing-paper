@@ -1,4 +1,0 @@
-0th mean reward:0.85 / std reward:0.9096703
-1th mean reward:0.55 / std reward:0.97339606
-2th mean reward:0.6 / std reward:1.0677078
-3th mean reward:0.45 / std reward:0.92059755
