@@ -1,11 +1,11 @@
-0th mean reward:-44.34445 / std reward:3.5371664
-1th mean reward:-46.56667 / std reward:1.5208012
-2th mean reward:-46.6 / std reward:3.1953578
-3th mean reward:-27.511026 / std reward:38.825336
-4th mean reward:-46.87778 / std reward:2.528449
-5th mean reward:-43.30001 / std reward:7.668861
-6th mean reward:-47.344444 / std reward:1.7121184
-7th mean reward:-45.78889 / std reward:2.5640867
-8th mean reward:-47.422222 / std reward:1.4847353
-9th mean reward:-45.95556 / std reward:2.0464926
-Total mean reward:-44.17110538482666
+0th mean reward:-41.619423 / std reward:21.098215
+1th mean reward:-37.97607 / std reward:26.439934
+2th mean reward:-41.632202 / std reward:21.296988
+3th mean reward:-45.984444 / std reward:9.855193
+4th mean reward:-46.27556 / std reward:4.745331
+5th mean reward:-38.986633 / std reward:26.438711
+6th mean reward:-46.02223 / std reward:3.1936865
+7th mean reward:-46.92834 / std reward:2.16678
+8th mean reward:-43.120552 / std reward:14.52716
+9th mean reward:-45.08444 / std reward:8.657458
+Total mean reward:-43.362989044189455
