@@ -19,8 +19,6 @@ result_per_timestep_per_hyperparam = {}
 
 for h in range(args.parameter_id):
     param_id = h
-    if param_id == 0:
-        continue
 
     eval_log_dir = study_dir + '/eval_logs/hyperparameter_' + str(param_id) + '/'
 

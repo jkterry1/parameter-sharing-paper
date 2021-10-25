@@ -1,4 +1,4 @@
-#python indicator_draw_learning_graph_single.py --study-name prospector_1_1e8_0 --parameter-id 0 --n-runs 5
+python indicator_draw_learning_graph_single.py --study-name prospector_1_1e8_0 --parameter-id 0 --n-runs 5
 python indicator_draw_learning_graph_single.py --study-name prospector_1_1e8_0 --parameter-id 1 --n-runs 5
 python indicator_draw_learning_graph_single.py --study-name prospector_1_1e8_0 --parameter-id 2 --n-runs 5
 python indicator_draw_learning_graph_single.py --study-name prospector_1_1e8_0 --parameter-id 3 --n-runs 5

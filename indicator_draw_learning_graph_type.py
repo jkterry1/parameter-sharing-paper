@@ -21,8 +21,6 @@ agent_indicator_set = []
 
 for h in range(args.parameter_id):
     param_id = h
-    if param_id == 0:
-        continue
 
     # See indicator type
     param_file = study_dir + "/hyperparameters_" + str(param_id) + ".json"
