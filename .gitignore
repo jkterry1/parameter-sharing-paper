@@ -14,3 +14,4 @@ htmlcov/
 git_rewrite_commit_history.sh
 .vscode/
 *.zip
+*.gif

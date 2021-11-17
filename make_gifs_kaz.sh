@@ -1,0 +1,1 @@
+python indicator_make_gif.py --env-name knights-archers-zombies-v7 --study-name kaz_1_1e7_0 --parameter-id 16 --run-id 10
