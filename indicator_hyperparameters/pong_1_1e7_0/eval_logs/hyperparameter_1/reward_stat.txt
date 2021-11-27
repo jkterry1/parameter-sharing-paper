@@ -1,0 +1,11 @@
+0th mean reward:-19.0 / std reward:0.0
+1th mean reward:-19.0 / std reward:0.0
+2th mean reward:-19.0 / std reward:0.0
+3th mean reward:-19.0 / std reward:0.0
+4th mean reward:-18.0 / std reward:0.0
+5th mean reward:-18.0 / std reward:0.0
+6th mean reward:-17.0 / std reward:0.0
+7th mean reward:-20.0 / std reward:0.0
+8th mean reward:-19.0 / std reward:0.0
+9th mean reward:-17.0 / std reward:0.0
+Total mean reward:-18.5
