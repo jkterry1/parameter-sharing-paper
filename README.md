@@ -19,12 +19,12 @@ There are four agent indicators implemented in this repo: Inversion, Inversion w
 * Geometric: Add an additional channel with alternating geometric checkered pattern for different types of agents.
 * Binary: Add additional channels, each of which is entirely black or white based on the type of an agent.
 
-To see the implementation detail, please refer [indicator_utils.py](https://github.com/SonSang/rl-baselines3-zoo/blob/8669d675ae4f4f4328125ab0e9d47c8ded92c7f0/indicator_util.py).
+To see the implementation detail, please refer [indicator_utils.py](indicator_util.py).
 
 ## Evaluations
 
-Hyperparameters that gave best results were trained again for multiple times for fair evaluation. The retraining and evaluation scipt is [indicator_eval_params.py](https://github.com/SonSang/rl-baselines3-zoo/blob/8669d675ae4f4f4328125ab0e9d47c8ded92c7f0/indicator_eval_params.py).
+Hyperparameters that gave best results were trained again for multiple times for fair evaluation. The retraining and evaluation scipt is [indicator_eval_params.py](indicator_eval_params.py).
 
 # Results
 
-All the experimental results that used for paper are stored in [indicator_hyperparameters](https://github.com/SonSang/rl-baselines3-zoo/tree/8669d675ae4f4f4328125ab0e9d47c8ded92c7f0/indicator_hyperparameters) folder.
+All the experimental results that used for paper are stored in [indicator_hyperparameters](indicator_hyperparameters) folder.
