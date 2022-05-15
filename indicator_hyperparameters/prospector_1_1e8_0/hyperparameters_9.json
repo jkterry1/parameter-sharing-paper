@@ -1,0 +1,1 @@
+{"batch_size": 64, "n_steps": 128, "gamma": 0.98, "learning_rate": 0.00159775, "ent_coef": 1.00103e-08, "clip_range": 0.3, "n_epochs": 1, "gae_lambda": 0.98, "max_grad_norm": 0.8, "vf_coef": 0.00107564, "net_arch": "small", "activation_fn": "relu", "agent_indicator": "invert-replace"}

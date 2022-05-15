@@ -1,0 +1,1 @@
+python indicator_make_gif.py --env-name prospector-v4 --study-name prospector_1_1e8_0 --parameter-id 10 --run-id 5
