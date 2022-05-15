@@ -4,7 +4,7 @@ This is a repo dedicated for a RL research paper about agent indicator method. I
 
 # How to use
 
-The scripts are mainly located at [agent-indicator](https://github.com/SonSang/rl-baselines3-zoo/tree/agent-indicator) branch. The script to conduct the hyperparameter optimization is [indicator_opt.py](https://github.com/SonSang/rl-baselines3-zoo/blob/8669d675ae4f4f4328125ab0e9d47c8ded92c7f0/indicator_opt.py). Following comman can be used to run the script.
+The script to conduct the hyperparameter optimization is [indicator_opt.py](blob/master/indicator_opt.py). Following comman can be used to run the script.
 
 ```
 $ python indicator_opt.py --algo {PPO or DQN} --env {env name} --n-timesteps {number of timesteps} --n-trials {number of set of hyperparameters to test with} --n-evaluations {number of evaluations} --sampler {sampler type(Optuna)} --pruner {pruner type(Optuna)}
